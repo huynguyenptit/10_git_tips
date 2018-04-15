@@ -37,7 +37,7 @@ my_db_config/
 !main.pyc
 ```
 
-##3.  Ai đã làm rỗi code của tôi?
+##3. Ai đã làm bẩn code của tôi?
 
 Đấy là bản năng tự nhiên của con người khi trách móc người khác khi có gì đó bị sai. Nếu server sản xuất của bạn hỏng, sẽ rất dễ để tìm ra thủ phạm - chỉ cần thực hiện ```git blame```. Câu lệnh này sẽ cho bạn thấy tác giả của mỗi dòng trong 1 file, commit thực hiện thay đổi cuối cùng của dòng đó, và mốc thời gian của commit. 
 
@@ -48,36 +48,37 @@ git blame [file_name]
 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946443git-ninja-01.png)
 
-và như chụp màn hình dưới đây, bạn có thể thấy cách mà câu lệnh này theo dôi 1 repository lớn hơn
+Và trong ảnh chụp màn hình bên dưới, bạn có thể thấy lệnh này sẽ trông như thế nào trên một kho lưu trữ lớn hơn:
 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946441git-ninja-02.png)
 
 ##4. Xem lại lịch sử của Repository
 
-Hay xem qua cách sử dụng của ```git log``` trong bài hướng dẫn trước đây, truy nhiên, có 3 lựa chọn mà bạn nên biết.
+Hay xem qua cách sử dụng của ```git log``` trong bài hướng dẫn trước đây, tuy nhiên, có 3 lựa chọn mà bạn nên biết.
 
 * ```--oneline``` – Nén thống tin hiện thỉ bên cạnh mỗi commit thành các commit hash giảm thiểu và các thông điệp commit, tất cả được hiển thị trong 1 dòng đơn
 * ```--graph``` –  Lựa chọn này vẽ 1 miêu tả đồ thị dựa trên văn bản về lịch sử trên phía tay trái của đầu ra. Nó sẽ vỗ nghĩa nếu bạn đang xem lịch sử cho 1 nhánh đơn
 * ```--all``` – Hiển thị lịch sử của tất cả các nhánh
 
 Đấy khi kết hợp các lựa chọn thì nó trông thế này:
+
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946444git-ninja-03.png)
 
-##5. Không bao giờ theo dỗi sót 1 commit
+##5. Không bao giờ theo dõi sót 1 commit
 
-Hãy nói rằng bạn đã commit cái gì đó mà bạn không muốn và kết thúc bằng việc thực hiện hard reset để quay trở lại trạng thái trướcước. Gần đây, bạn nhận ra bạn đã sót vài thông tin khác trong tiến trình và muốn lấy nó lại, hay ít nhất là xem nó. Đây là lúc ```git reflog``` có thể giúp bạn.
+Hãy nói rằng bạn đã commit cái gì đó mà bạn không muốn và kết thúc bằng việc thực hiện hard reset để quay trở lại trạng thái trước. Sau đó, bạn nhận ra bạn đã sót vài thông tin khác trong tiến trình và muốn lấy nó lại, hay ít nhất là xem nó. Đây là lúc ```git reflog``` có thể giúp bạn.
 
-```git log`` đơn giản cho bạn biết commit cuối cuối, cha của nó, cha của cha nó, và vân vân. Tuy nhiên, ```git reflog``` là 1 danh sách các commit mà head đã trỏ tới. Hãy nhớ rằng nó cục bộ với hệ thống của bạn, nó không phải là 1 phần của repository của bạn và không bao gồm các push hay merge.
+```git log``` đơn giản cho bạn biết commit cuối cùng, cha của nó, cha của cha nó, và vân vân. Tuy nhiên, ```git reflog``` là 1 danh sách các commit mà head đã trỏ tới. Hãy nhớ rằng nó cục bộ với hệ thống của bạn, nó không phải là 1 phần của repository của bạn và không được bao gồm trong danh sách push hay merge.
 
-Nếu tôi chạy ```git log```, tôi sẽ lấy được các commit là 1 phần của repository của tôi
+Nếu tôi chạy ```git log```, tôi sẽ lấy được các commit là 1 phần repository của tôi
 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946446git-ninja-04.png)
 
-Tuy nhiên, 1 ```git reflog``` hiển thị 1 commit (```b1b0ee9 - HEAD@{4}```) mà bị mất khi bạn thực hiện 1 hard reset.
+Tuy nhiên, một câu lệnh ```git reflog``` hiển thị 1 commit (```b1b0ee9 - HEAD@{4}```) mà bị mất khi bạn thực hiện 1 hard reset.
 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946447git-ninja-05.png)
 
-##6. Stage 1 phần của các file thay đổi cho Commit 
+##6. Phân loại các thành phần của một file đã thay đổi cho một Commit
 
 Đây nhìn chung là cách làm tốt để tạo các commit hướng chức năng, trong đó, mỗi commit phải đại diện cho 1 tính năng hoặc 1 sửa lỗi. Tưởng tượng cái gì sẽ xảy ra nếu bạn sửa 2 lỗi, hoặc thêm nhiều tính năng mà không commit sự thay đổi. Trong trường hợp này, bạn có thể để các sự thay đổi trong 1 commit đơn le. Nhưng có 1 cách khác tốt hơn: stage các file riêng lẻ và commit chúng lần lượt.
 
@@ -101,10 +102,10 @@ Trông như rằng Git giả định rằng tất cả sự thay đổi là 1 ph
 * Gõ y để stage nhóm đó
 * Gõ n để không stage nhóm đó
 * Gõ e để sửa nhóm đó thủ công
-* Gõ đ để thoát và đến file tiếp theo
+* Gõ d để thoát hoặc đến file tiếp theo
 * Gõ s đẻ chia nhỏ nhóm
 
-Trong trường hợp của chúng tôi, chúng tôi chắc chắn muốn chia nó thành các phần nhỏ hơn để thêm 1 cách có lựa chọn 1 vài chỗ và loại bỏ phần còn lịa. 
+Trong trường hợp của chúng tôi, chúng tôi chắc chắn muốn chia nó thành các phần nhỏ hơn để thêm 1 cách có lựa chọn 1 vài chỗ và loại bỏ phần còn lại. 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946452git-ninja-08.png)
 
 Như bạn có thể thấy, chúng tôi phỉa thêm dòng đầu và dòng thử 3 và loại bỏ dòng thứ 2. Bạn có thể sau đó xem trạng thái của repository và tạo 1 commit.
@@ -113,7 +114,7 @@ Như bạn có thể thấy, chúng tôi phỉa thêm dòng đầu và dòng th�
 
 ##7. Ép nhiều commit
 
-Khi bạn gửi code của bạn để xem lại và tạo 1 pull request( thử xảy ra thường xuyên trong các dự án open source), ạnạn có thể sẽ được yêu cầu để tạo 1 thay đổi cho code của bạn trước khi nó được chấp nhaank. Bạn tạo sự thay đổi, chỉ khi được yêu cầu thay đổi nó 1 lần nữa trong lần xem lại tiếp theo. Trước khi bạn biết nó, bạn có vài commit thêm. Lý tưởng nhất là bạn có thể ép chúng lại làm 1 sử dụng câu lệnh ```rebase```.
+Khi bạn gửi code của bạn để xem lại và tạo 1 pull request( thử xảy ra thường xuyên trong các dự án open source), bạn có thể sẽ được yêu cầu để tạo 1 thay đổi cho code của bạn trước khi nó được chấp nhaank. Bạn tạo sự thay đổi, chỉ khi được yêu cầu thay đổi nó 1 lần nữa trong lần xem lại tiếp theo. Trước khi bạn biết nó, bạn có vài commit thêm. Lý tưởng nhất là bạn có thể ép chúng lại làm 1 sử dụng câu lệnh ```rebase```.
 
 ```
 
@@ -128,7 +129,7 @@ git rebase -i HEAD~2
 
 ```
 
-Khi chạy câu lệnh này, bạn sẽ được dẫn tới 1 giao diện tương tác liệt kê các commit và hỏi bạn cái nào để ép. Lý tưởng nhất là bạn ``` chọn``` commit cuối cùng và ``` ép ``` với các cái cũ.
+Trong câu lệnh đang chạy, bạn sẽ được đưa đến một giao diện tương tác liệt kê các commit và hỏi lại xem cái nào bạn muốn squash. Lý tưởng nhất, bạn ```pick``` commit cuối cùng và ```squash``` cái đó.
 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946455git-ninja-10.png)
 
@@ -171,10 +172,10 @@ git stash apply stash@{2}
 
 ![ahihi](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/06/1402946461git-ninja-13.png)
 
-
 ##9. Kiểm tra những commit bị mất
 
-Mặc dù ```reflog``` là 1 cách để kiểm tra các commit bị mất, nó không tiện trong các repository lớn. Đó là khi câu lệnh ```fsck``` (kiểm tra hệ thống file) vào cuộc
+
+Mặc dù ```reflog``` là một cachs để kiểm tra các commit thất lạc, điều này là không khả thi đối vs các repo lớn. Trong khi câu lệnh ```fsck``` (Hệ thống kiếm tra file) có vẻ ổn.
 
 ```
 
@@ -212,8 +213,4 @@ Mặc dù lần này tôi đã dọn ```cherry-pick```, bạn nên biết rằng
 ##Kết luận
 
 Với những điều này, chúng tôi đi đến kết luận của danh sách các lời khuyên của chúng tôi mà tôi nghĩ rằng có thể giúp bạn nâng tầm các kĩ năng Git của ban. Git là thứ tốt nhất ngoài đó và nó có thể  hoàn thành bất cứ thứ gì mà bạn có thể tưởng tượng. Vìì thế, hãy luốn cố gắng thách thức bản thân với Git. Cơ hội đến, bạn sẽ có thể học được điều gì đó mới mẻ!
-
-
-
-
 
